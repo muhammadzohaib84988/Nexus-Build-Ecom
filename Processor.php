@@ -1,7 +1,13 @@
 <?php
-// Directory containing images
-$imageDirectory = 'C:/xampp/New folder/htdocs/Yaseen Project/imgs/Processor';
-$imageFiles = array_diff(scandir($imageDirectory), array('.', '..'));
+// Directory containing images (Updated to zohaib project with relative path)
+$imageDirectory = 'imgs/Processor';
+
+// Check if directory exists before scanning to avoid errors
+if (is_dir($imageDirectory)) {
+    $imageFiles = array_diff(scandir($imageDirectory), array('.', '..'));
+} else {
+    $imageFiles = array();
+}
 
 // Generate random prices function
 function generateRandomPrice($min = 10000, $max = 50000) {
@@ -16,7 +22,7 @@ function generateRandomPrice($min = 10000, $max = 50000) {
     <?php include('Source/Nav/link.php'); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Computer Graphics Card</title>
+    <title>Nexus Build - Custom Processor</title>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -139,10 +145,8 @@ function generateRandomPrice($min = 10000, $max = 50000) {
 </head>
 
 <body>
-    <!-- Header -->
     <?php include('Source/Nav/header.php'); ?>
 
-    <!-- Main Content -->
     <header class="custom-header">
         <a href="Build Your Own Custom Computer.php">
             <button>Build Your Own Custom Computer</button>
@@ -153,19 +157,22 @@ function generateRandomPrice($min = 10000, $max = 50000) {
         <h1>Custom Computer <span>Processor</span></h1>
 
         <div class="product-grid">
-            <?php foreach ($imageFiles as $imageFile): ?>
-                <div class="product-card">
-                    <img src="imgs/Processor/<?php echo $imageFile; ?>" alt="Product Image">
-                    <h3 class="card-title">Processor Model</h3>
-                    <p>Custom Computer,Processor | NEW</p>
-                    <div class="price"><?php echo generateRandomPrice(); ?></div>
-                    <button class="btn-custom">Add to Cart</button>
-                </div>
-            <?php endforeach; ?>
+            <?php if (!empty($imageFiles)): ?>
+                <?php foreach ($imageFiles as $imageFile): ?>
+                    <div class="product-card">
+                        <img src="imgs/Processor/<?php echo $imageFile; ?>" alt="Product Image">
+                        <h3 class="card-title">zohaib project - Processor</h3>
+                        <p>High-Performance Computing | NEW</p>
+                        <div class="price"><?php echo generateRandomPrice(); ?></div>
+                        <button class="btn-custom">Add to Cart</button>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p style="text-align:center;">No processor images found in folder.</p>
+            <?php endif; ?>
         </div>
     </div>
 
-    <!-- Footer -->
     <?php include('Source/Nav/footer.php'); ?>
 </body>
 
